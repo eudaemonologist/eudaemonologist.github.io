@@ -1,27 +1,161 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Eudaemonologist</title>
+        <title>Eudaemonologist | Home</title>
         <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
         <script src="https://cdn.jsdelivr.net/npm/vue"></script>
         <script src="https://kit.fontawesome.com/02e9cf65f2.js"></script>
     </head>
     <body>
         <div id ='app'>
+            <div class="navbar">
+                <a href="#" v-for="page in pages" @click.stop="navigateTo(page)">{{page}}</a>
+                <a href="https://www.youtube.com/channel/UCBPwc6K27stq31KPlUAOZGw">Videos</a>
+                
+            </div>
+            <div id="contentFrame">
+                <div id ="titleBox">
+                    <h3>{{currentPage}}</h3>
+                </div>
+                <div id ="paragraph" v-if="currentPage == 'Home'">
+                    <p>Welcome to my website! <a href="https://en.wikipedia.org/wiki/Eudaimonia">Eudaemonia</a> is a concept from Greek
+                    philosophy which roughly translates as "happiness" or "flourishing", and can be thought of as the kind of life you are aiming at.</p><br>
+                    <p>This website is dedicated to my personal exploration of eudaemonia, and will include <a href="articles.html">articles</a>,
+                    <a href="book-reviews.html">book reviews</a>, and <a href="https://www.youtube.com/channel/UCBPwc6K27stq31KPlUAOZGw">explanatory videos</a> (coming soon).</p>
+                </div>
+                <div id="paragraph" v-if="currentPage == 'Articles'">
+                    Coming soon:<br>
+                    The point of morality<br>
+                    Causes of conflict<br>
+                    Ambivalence/akrasia<br>
+                    Aversion and insight<br>
+
+                </div>
+                <div id="paragraph" v-if="currentPage == 'Book Reviews'">
+                    Coming soon:<br>
+                    The Manual<br>
+                    Grit<br>
+                    Character Strengths and Virtues<br>
+                </div>
+            </div>
         </div>
     </body>
 </html>
 
 <script>
     app = new Vue({
-    el: '#app',
+        el: '#app',
+        data() {
+            return {
+                currentPage: "Home",
+                pages: ["Home", "Articles", "Book Reviews", "Quotes"]
+            }
+        },
+        methods: {
+            navigateTo(target){
+                if (target) {
+                    this.currentPage = target;
+                } else {
+                    this.currentPage = "Home";
+                }
+                
+            }
+        }
     })
 </script>
 
 <style>
-    html, body {
+    * {
         margin: 0;
         padding: 0;
     }
+
+    #app {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .navbar {
+        position: sticky;
+        z-index: 9;
+        top: 0;
+        width: 100%;
+        background: dimgray;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .navbar a{
+        color: white;
+        border: none;
+        padding: 1vh 1vw;
+        font-size: 16px;
+        text-decoration: none;
+        flex-grow: 1;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition-duration: 0.5s;
+    }
+
+    .navbar a:hover {
+        color:black;
+        background-color: grey;
+    }
+
+    #titleBox {
+        background-color: black;
+        color: white;
+        border: solid grey;
+        margin: 1vh 0;
+        width: 100%;
+        padding: 2vh 2vw;
+    }
+
+    #paragraph {
+        text-align: justify;
+        text-justify: inter-character;
+    }
+
+    /* mobile */
+    @media (max-width: 480px) {
+        #contentFrame {
+            width: 95vw;
+        }
+    }
+
+    /* tablet */
+    @media (max-width: 768px) {
+        #contentFrame {
+            width: 90vw;
+        }
+    }
+
+    /* laptop */
+    @media (max-width: 1024px) {
+        #contentFrame {
+            width: 80vw;
+        }
+    }
+
+    /* desktop */
+    @media (min-width: 1025px) {
+        #contentFrame {
+            width: 70vw;
+        }
+    }
+
+    /* large screens
+    @media (min-width: 1201px) {
+        #contentFrame {
+            font-size: 16px;
+        }
+    } */
     
 </style>
